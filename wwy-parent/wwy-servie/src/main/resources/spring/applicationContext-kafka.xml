@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xmlns:p="http://www.springframework.org/schema/p"
+	xmlns:tx="http://www.springframework.org/schema/tx"
+	xmlns:aop="http://www.springframework.org/schema/aop"
+	xmlns:context="http://www.springframework.org/schema/context"
+	xmlns:util="http://www.springframework.org/schema/util"
+	xmlns:redis="http://www.springframework.org/schema/redis"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-4.0.xsd
+		http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context-4.0.xsd
+		http://www.springframework.org/schema/aop http://www.springframework.org/schema/aop/spring-aop-4.0.xsd
+		http://www.springframework.org/schema/redis http://www.springframework.org/schema/redis/spring-redis-1.0.xsd
+		http://www.springframework.org/schema/tx http://www.springframework.org/schema/tx/spring-tx-4.0.xsd
+		http://www.springframework.org/schema/util http://www.springframework.org/schema/util/spring-util-4.0.xsd">
+	
+	<util:properties id="kafkaProducerProperties" location="classpath:kafka-producer.properties"/>
+	<context:property-placeholder properties-ref="kafkaProducerProperties" ignore-unresolvable="true"/>
+	<util:properties id="kafkaConsumerProperties" location="classpath:kafka-consumer.properties"/>
+	<context:property-placeholder properties-ref="kafkaConsumerProperties" ignore-unresolvable="true"/>
+
+	<bean id="kafkaProducerConfiguration" class="wwy.configuration.KafkaProducerConfiguration">
+		<property name="producerProperties" ref="kafkaProducerProperties"/>
+		<!-- <property name="producerProperties">
+            <props>
+                <prop key="metadata.broker.list">${metadata.broker.list}</prop>
+                <prop key="serializer.class">${serializer.class}</prop>
+                <prop key="zookeeper.session.timeout.ms">${zookeeper.session.timeout.ms}</prop>
+            </props>
+        </property> -->
+        <!-- <property name="consumerProperties">
+            <props>
+                <prop key="zookeeper.connect">${zookeeper.connect}</prop>
+                <prop key="zookeeper.session.timeout.ms">${zookeeper.session.timeout.ms}</prop>
+                <prop key="zookeeper.sync.time.ms">${zookeeper.sync.time.ms}</prop>
+                <prop key="auto.commit.interval.ms">${auto.commit.interval.ms}</prop>
+            </props>
+        </property> -->
+	</bean>
+
+</beans>
